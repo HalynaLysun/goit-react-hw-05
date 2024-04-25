@@ -2,11 +2,12 @@ import css from "./MovieList.module.css";
 import { NavLink } from "react-router-dom";
 
 export default function MovieList({ movies }) {
+  console.log(movies);
   return (
     <ul className={css.list}>
       {movies.map((movie) => (
         <li key={movie.id}>
-          <NavLink to={`/movies:${movie.id}`}>{movie.original_title}</NavLink>
+          <NavLink to={`/movies/${movie.id}`}>{movie.original_title}</NavLink>
         </li>
       ))}
     </ul>
