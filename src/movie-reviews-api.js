@@ -9,8 +9,8 @@ const options = {
   },
 };
 
-export default async function getMoviesById(movieId) {
-  const response = axios.get(`movie/${movieId}`, options);
+export default async function getReviewsMoviesById(movieId) {
+  const response = axios.get(`movie/${movieId}/reviews`, options);
 
   return (await response).data;
 }
