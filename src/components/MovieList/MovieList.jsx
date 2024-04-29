@@ -2,7 +2,6 @@ import css from "./MovieList.module.css";
 import { NavLink } from "react-router-dom";
 
 export default function MovieList({ movies }) {
-  console.log(movies);
   return (
     <ul className={css.list}>
       {movies.map((movie) => (

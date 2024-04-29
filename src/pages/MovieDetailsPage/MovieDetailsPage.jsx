@@ -58,6 +58,7 @@ export default function MovieDetailsPage() {
               <NavLink to="review">Reviews</NavLink>
             </li>
           </ul>
+          <Outlet />
         </div>
       )}
     </div>
