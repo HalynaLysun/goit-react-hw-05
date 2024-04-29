@@ -1,5 +1,5 @@
 import css from "./MovieDetailsPage.module.css";
-import { NavLink, useParams, Outlet } from "react-router-dom";
+import { NavLink, useParams, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getMoviesById from "../../movie-id-api";
 import Loader from "../../components/Loader/Loader";
@@ -10,6 +10,9 @@ export default function MovieDetailsPage() {
   const [movieDetails, setmovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const location = useLocation();
+  const backMovieUrl = location.state;
 
   useEffect(() => {
     async function fetchMovieById() {
@@ -32,7 +35,7 @@ export default function MovieDetailsPage() {
       {error && <ErrorMessage />}
       {movieDetails && (
         <div>
-          <NavLink to="/movies">Go back</NavLink>
+          <NavLink to={backMovieUrl}>Go back</NavLink>
           <img
             src={`https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`}
             alt="main characters"

@@ -30,7 +30,7 @@ export default function MovieReviews() {
   return (
     <div>
       {loading && <Loader />}
-      {movieReviews && (
+      {movieReviews && movieReviews.length > 0 ? (
         <ul className={css.list}>
           {movieReviews.map((e) => (
             <li key={e.id}>
@@ -39,6 +39,8 @@ export default function MovieReviews() {
             </li>
           ))}
         </ul>
+      ) : (
+        <p>Sorry. We don't have any reviews for this movie</p>
       )}
       {error && <ErrorMessage />}
     </div>
