@@ -2,21 +2,34 @@ import css from "./MovieDetailsPage.module.css";
 import { NavLink, useParams, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getMoviesById from "../../movie-id-api";
+import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movieDetails, setmovieDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchMovieById() {
-      const data = await getMoviesById(movieId);
-      setmovieDetails(data);
+      try {
+        setLoading(true);
+        const data = await getMoviesById(movieId);
+        setmovieDetails(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchMovieById();
   }, [movieId]);
 
   return (
     <div>
+      {loading && <Loader />}
+      {error && <ErrorMessage />}
       {movieDetails && (
         <div>
           <NavLink to="/movies">Go back</NavLink>
@@ -55,7 +68,7 @@ export default function MovieDetailsPage() {
               <NavLink to="cast">Cast</NavLink>
             </li>
             <li>
-              <NavLink to="review">Reviews</NavLink>
+              <NavLink to="reviews">Reviews</NavLink>
             </li>
           </ul>
           <Outlet />
