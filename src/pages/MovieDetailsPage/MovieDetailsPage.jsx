@@ -12,6 +12,7 @@ export default function MovieDetailsPage() {
   const [error, setError] = useState(false);
 
   const location = useLocation();
+  console.log(location);
   const backMovieUrl = location.state;
 
   useEffect(() => {
@@ -68,10 +69,14 @@ export default function MovieDetailsPage() {
           <h2>Additional information</h2>
           <ul>
             <li>
-              <NavLink to="cast">Cast</NavLink>
+              <NavLink to="cast" state={location}>
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to="reviews">Reviews</NavLink>
+              <NavLink to="reviews" state={location}>
+                Reviews
+              </NavLink>
             </li>
           </ul>
           <Outlet />

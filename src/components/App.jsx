@@ -6,6 +6,7 @@ import MovieDetailsPage from "../pages/MovieDetailsPage/MovieDetailsPage";
 import MovieReviews from "../components/MovieReviews/MovieReviews";
 import MovieCast from "../components/MovieCast/MovieCast";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import { useLocation } from "react-router-dom";
 
 export default function App() {
   return (
