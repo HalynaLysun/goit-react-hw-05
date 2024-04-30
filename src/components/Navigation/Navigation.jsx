@@ -3,9 +3,16 @@ import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
   return (
-    <nav>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/movies">Movies</NavLink>
-    </nav>
+    <div>
+      <nav className={css.nav}>
+        <NavLink className={css.link} to="/">
+          Home
+        </NavLink>
+        <NavLink className={css.link} to="/movies">
+          Movies
+        </NavLink>
+      </nav>
+      <hr className={css.line} />
+    </div>
   );
 }

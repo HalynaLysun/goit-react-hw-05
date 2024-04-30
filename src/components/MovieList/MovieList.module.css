@@ -1,4 +1,16 @@
 .list {
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.image {
+  height: 350px;
+  width: 240px;
+}
+
+.text {
+  max-width: 200px;
+  font-size: 20px;
+  text-align: center;
 }

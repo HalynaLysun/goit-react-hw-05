@@ -1,5 +1,11 @@
 body {
   padding: 30px 15px;
+  background-color: rgb(153, 182, 208);
+  color: white;
+}
+
+a {
+  color: white;
 }
 
 ul {

@@ -7,9 +7,16 @@ export default function MovieList({ movies }) {
   return (
     <ul className={css.list}>
       {movies.map((movie) => (
-        <li key={movie.id}>
+        <li className={css.item} key={movie.id}>
           <NavLink to={`/movies/${movie.id}`} state={location}>
-            {movie.original_title}
+            <div>
+              <img
+                className={css.image}
+                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                alt="poster path"
+              />
+              <p className={css.text}>{movie.original_title}</p>
+            </div>
           </NavLink>
         </li>
       ))}

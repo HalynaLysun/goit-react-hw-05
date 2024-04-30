@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import ErrorSearch from "../../components/ErrorSearch/ErrorSearch";
 
 export default function MoviesPage() {
   const [query, setQuery] = useState("");
@@ -28,10 +29,13 @@ export default function MoviesPage() {
   useEffect(() => {
     async function fetchMovies() {
       try {
+        if (!query) {
+          return;
+        }
         setLoading(true);
         const data = await getSearchMovie(query, page);
         const newMovies = data.results;
-        setMovies((prevMovies) => [...prevMovies, newMovies]);
+        setMovies((prevMovies) => [...prevMovies, ...newMovies]);
       } catch (error) {
         setError(true);
       } finally {
@@ -39,7 +43,7 @@ export default function MoviesPage() {
       }
     }
     fetchMovies();
-  }, [query, page, error]);
+  }, [query, page]);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -48,15 +52,16 @@ export default function MoviesPage() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="movie" />
-        <button type="submit">Search</button>
+        <input className={css.input} type="text" name="movie" />
+        <button className={css.btn} type="submit">
+          Search
+        </button>
       </form>
-      {loading && <Loader />}
       <MovieList movies={movies} />
+      {loading && <Loader />}
+      {movies.length === 0 && !loading && query && <ErrorSearch />}
       {error && <ErrorMessage />}
-      {movies.length > 0 && !loading && (
-        <LoadMoreBtn onClick={handleLoadMore} />
-      )}
+      {movies.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
     </div>
   );
 }
