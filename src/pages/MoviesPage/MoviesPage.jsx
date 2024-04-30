@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 
 export default function MoviesPage() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
+
   function handleSubmit(evt) {
     evt.preventDefault();
+
     const form = evt.target;
     const query = form.movie.value.trim();
 
@@ -19,16 +21,19 @@ export default function MoviesPage() {
   useEffect(() => {
     async function fetchMovies() {
       const data = await getSearchMovie(query);
-      console.log(query);
-      console.log(data);
+      setMovies(data.results);
     }
     fetchMovies();
   }, [query]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="movie" />
-      <button type="submit">Search</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="movie" />
+        <button type="submit">Search</button>
+      </form>
+
+      <MovieList movies={movies} />
+    </div>
   );
 }

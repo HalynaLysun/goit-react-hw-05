@@ -10,11 +10,12 @@ const options = {
 };
 
 export default async function getSearchMovie(query) {
-  const response = await axios.get("search/movie", options, {
+  const response = await axios.get("search/movie", {
     params: {
       query: query,
       per_page: 15,
     },
+    headers: options.headers,
   });
   return response.data;
 }
