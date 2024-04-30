@@ -68,10 +68,10 @@ export default function MovieDetailsPage() {
           <h2>Additional information</h2>
           <ul>
             <li>
-              <NavLink to="cast" /*state={location}*/>Cast</NavLink>
+              <NavLink to="cast">Cast</NavLink>
             </li>
             <li>
-              <NavLink to="reviews" /*state={location}*/>Reviews</NavLink>
+              <NavLink to="reviews">Reviews</NavLink>
             </li>
           </ul>
           <Outlet />
