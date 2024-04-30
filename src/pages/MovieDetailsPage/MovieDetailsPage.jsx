@@ -1,6 +1,6 @@
 import css from "./MovieDetailsPage.module.css";
 import { NavLink, useParams, Outlet, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import getMoviesById from "../../movie-id-api";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
@@ -12,8 +12,7 @@ export default function MovieDetailsPage() {
   const [error, setError] = useState(false);
 
   const location = useLocation();
-  console.log(location);
-  const backMovieUrl = location.state;
+  const backMovieUrl = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     async function fetchMovieById() {
@@ -36,7 +35,7 @@ export default function MovieDetailsPage() {
       {error && <ErrorMessage />}
       {movieDetails && (
         <div>
-          <NavLink to={backMovieUrl}>Go back</NavLink>
+          <NavLink to={backMovieUrl.current}>Go back</NavLink>
           <img
             src={`https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`}
             alt="main characters"
@@ -69,14 +68,10 @@ export default function MovieDetailsPage() {
           <h2>Additional information</h2>
           <ul>
             <li>
-              <NavLink to="cast" state={location}>
-                Cast
-              </NavLink>
+              <NavLink to="cast" /*state={location}*/>Cast</NavLink>
             </li>
             <li>
-              <NavLink to="reviews" state={location}>
-                Reviews
-              </NavLink>
+              <NavLink to="reviews" /*state={location}*/>Reviews</NavLink>
             </li>
           </ul>
           <Outlet />

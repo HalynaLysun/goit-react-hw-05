@@ -9,7 +9,7 @@ export default function MoviesPage() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
+    setMovies([]);
     const form = evt.target;
     const query = form.movie.value.trim();
 
