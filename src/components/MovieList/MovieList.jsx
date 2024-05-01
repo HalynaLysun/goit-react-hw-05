@@ -10,11 +10,19 @@ export default function MovieList({ movies }) {
         <li className={css.item} key={movie.id}>
           <NavLink to={`/movies/${movie.id}`} state={location}>
             <div>
-              <img
-                className={css.image}
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                alt="poster path"
-              />
+              {movie.poster_path ? (
+                <img
+                  className={css.image}
+                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                  alt="poster path"
+                />
+              ) : (
+                <img
+                  className={css.image}
+                  src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                ></img>
+              )}
+
               <p className={css.text}>{movie.original_title}</p>
             </div>
           </NavLink>

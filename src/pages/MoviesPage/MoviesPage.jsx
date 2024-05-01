@@ -6,13 +6,17 @@ import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import ErrorSearch from "../../components/ErrorSearch/ErrorSearch";
+import { useSearchParams } from "react-router-dom";
 
 export default function MoviesPage() {
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const queryMovie = searchParams.get("query") ?? "";
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -20,22 +24,20 @@ export default function MoviesPage() {
     setMovies([]);
     const form = evt.target;
     const query = form.movie.value.trim();
-
-    setQuery(query);
-
+    searchParams.set("query", query);
+    setSearchParams(searchParams);
     form.reset();
   }
 
   useEffect(() => {
     async function fetchMovies() {
       try {
-        if (!query) {
+        if (!queryMovie) {
           return;
         }
         setLoading(true);
-        const data = await getSearchMovie(query, page);
-        const newMovies = data.results;
-        setMovies((prevMovies) => [...prevMovies, ...newMovies]);
+        const data = await getSearchMovie(queryMovie, page);
+        setMovies(data.results);
       } catch (error) {
         setError(true);
       } finally {
@@ -43,7 +45,7 @@ export default function MoviesPage() {
       }
     }
     fetchMovies();
-  }, [query, page]);
+  }, [queryMovie, page]);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -59,7 +61,9 @@ export default function MoviesPage() {
       </form>
       <MovieList movies={movies} />
       {loading && <Loader />}
-      {movies.length === 0 && !loading && query && <ErrorSearch />}
+      {movies.length === 0 && !loading && queryMovie && !error && (
+        <ErrorSearch />
+      )}
       {error && <ErrorMessage />}
       {movies.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
     </div>

@@ -1,7 +1,7 @@
 export default function ErrorMessage() {
   return (
-    <>
-      <h1>Something was wrong!</h1>
-    </>
+    <p>
+      Something was wrong! Please try again or chek your internet connection!
+    </p>
   );
 }

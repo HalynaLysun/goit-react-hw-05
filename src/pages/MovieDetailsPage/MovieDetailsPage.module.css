@@ -1,4 +1,31 @@
 .list {
-  display: flex;
   flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.link {
+  font-size: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: start;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.img {
+  margin-top: 20px;
+}
+
+.navLink {
+  background-color: rgb(69, 39, 160);
+  border-radius: 3px;
+  padding: 8px 20px;
+  text-decoration: none;
+  font-size: 16px;
 }

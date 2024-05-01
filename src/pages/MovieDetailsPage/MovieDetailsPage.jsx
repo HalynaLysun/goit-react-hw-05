@@ -32,51 +32,61 @@ export default function MovieDetailsPage() {
   return (
     <div>
       {loading && <Loader />}
-      {error && <ErrorMessage />}
+
       {movieDetails && (
         <div>
-          <NavLink to={backMovieUrl.current}>Go back</NavLink>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`}
-            alt="main characters"
-          />
-          <ul className={css.list}>
-            <li>
-              <h1>
-                {movieDetails.original_title} ({movieDetails.release_date})
-              </h1>
-            </li>
-            <li>
-              <p>User Score: {movieDetails.vote_average.toFixed(1)}</p>
-            </li>
-            <li>
-              <p>
-                <b>Overview: </b>
-                {movieDetails.overview}
-              </p>
-            </li>
-            <li>
-              <p>
-                <b>Genres:</b>
-                {movieDetails.genres.map((e) => (
-                  <span key={e.id}>{e.name}</span>
-                ))}
-              </p>
-            </li>
-          </ul>
+          <NavLink className={css.navLink} to={backMovieUrl.current}>
+            Go back
+          </NavLink>
+          <div className={css.wrapper}>
+            <img
+              className={css.img}
+              src={`https://image.tmdb.org/t/p/w200${movieDetails.poster_path}`}
+              alt="main characters"
+            />
+            <ul className={css.list}>
+              <li>
+                <h1>
+                  {movieDetails.original_title} ({movieDetails.release_date})
+                </h1>
+              </li>
+              <li>
+                <p>User Score: {movieDetails.vote_average.toFixed(1)}</p>
+              </li>
+              <li>
+                <p>
+                  <b>Overview: </b>
+                  {movieDetails.overview}
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>Genres: </b>
+                  {movieDetails.genres.map((e) => (
+                    <span key={e.id}>{e.name}</span>
+                  ))}
+                </p>
+              </li>
+            </ul>
+          </div>
 
           <h2>Additional information</h2>
-          <ul>
+          <ul className={css.info}>
             <li>
-              <NavLink to="cast">Cast</NavLink>
+              <NavLink className={css.link} to="cast">
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to="reviews">Reviews</NavLink>
+              <NavLink className={css.link} to="reviews">
+                Reviews
+              </NavLink>
             </li>
           </ul>
           <Outlet />
         </div>
       )}
+      {error && <ErrorMessage />}
     </div>
   );
 }
